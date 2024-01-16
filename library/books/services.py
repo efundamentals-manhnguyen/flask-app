@@ -49,9 +49,12 @@ def update_book_by_id_service(id):
     book = Books.query.get(id)
     data = request.json
     if book:
-        if data and "page_count" in data:
+        if (data and ("page_count" in data) and ("name" in data) and ("author_id" in data) and ("category_id" in data)):
             try:
-                book.page_count = data["page_count"]
+                book.page_count = data['page_count']
+                book.name = data['name']
+                book.author_id = data['author_id']
+                book.category_id = data['category_id']
                 db.session.commit()
                 return jsonify({"message": "Book updated"}), 200
             except IndentationError:

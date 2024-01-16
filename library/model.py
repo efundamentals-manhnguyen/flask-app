@@ -4,7 +4,7 @@ from .extension import db
 class Students(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    birth_date = db.Column(db.Date)
+    birth_date = db.Column(db.String(10))
     gender = db.Column(db.String(10))
     class_name = db.Column(db.String(10))
 
@@ -33,8 +33,8 @@ class Borrows(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey("books.id"))
     student_id = db.Column(db.Integer, db.ForeignKey("students.id"))
-    borrow_date = db.Column(db.Date)
-    return_date = db.Column(db.Date)
+    borrow_date = db.Column(db.String(10))
+    return_date = db.Column(db.String(10))
 
     def __init__(self, book_id, student_id, borrow_date, return_date):
         self.book_id = book_id

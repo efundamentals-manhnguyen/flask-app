@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .services import get_borrow_author_cat_service, get_all_borrowed_book_service
+from .services import get_borrow_author_cat_service, get_all_borrowed_book_service, add_borrow_book_service, delete_borrow_book_by_id_service
 borrow = Blueprint("borrow", __name__)
 
 #get all borrowed books by student name
@@ -11,3 +11,13 @@ def get_borrow_author_cat(student_name):
 @borrow.route("/borrow-management/borrow/books", methods=['GET'])
 def get_all_borrowed_books():
     return get_all_borrowed_book_service()
+
+#add book borrow
+@borrow.route("/borrow-management/borrow", methods=['POST'])
+def add_book_borrow():
+    return add_borrow_book_service()
+
+#delete book borrow
+@borrow.route("/borrow-management/borrow/<int:id>", methods=['DELETE'])
+def delete_book_borrow(id):
+    return delete_borrow_book_by_id_service(id)

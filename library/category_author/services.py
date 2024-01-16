@@ -61,7 +61,6 @@ def add_author_service():
         return jsonify({"message": "Request error"}), 400
     
 
-
 def get_all_authors_service():
     authors = Author.query.all()
     if authors:
