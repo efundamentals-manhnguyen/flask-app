@@ -28,12 +28,12 @@ class TestBookApi(unittest.TestCase):
 
     #test delete_book_by_id
     def test_delete_book_by_id(self):
-        response = requests.get(BASE_URL + "/5")
+        response = requests.delete(BASE_URL + "/5")
         self.assertEqual(response.status_code, 200)
 
     #test delete_book_by_id_negative
     def test_delete_book_by_id_negative(self):
-        response = requests.get(BASE_URL + "/100")
+        response = requests.delete(BASE_URL + "/100")
         self.assertEqual(response.status_code, 404)
 
     #test get_book_by_author
