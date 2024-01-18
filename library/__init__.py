@@ -1,4 +1,4 @@
-from flask import Flask, request, Blueprint
+from flask import Flask, request, Blueprint, render_template
 from .books.controller import books
 from .borrow.controller import borrow
 from .students.controller import students
@@ -12,6 +12,9 @@ def create_app(config_file = "config.py"):
                   static_folder='build',
                   template_folder='build')
     app.config.from_pyfile(config_file)
+    @app.route('/')
+    def index():
+        return render_template('../front_end/index.html')
     db.init_app(app)
     ma.init_app(app)
     with app.app_context():
