@@ -3,7 +3,7 @@ from .extension import ma
 
 class StudentSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'birth_date', 'gender', 'class_name')
+        fields = ('id', 'name', 'email', 'password', 'dob', 'gender', 'class_name')
 
 
 class CatSchema(ma.Schema):
@@ -23,4 +23,4 @@ class BorrowSchema(ma.Schema):
 
 class BookSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'page_count', 'author_id', 'category_id')
+        fields = ('id', 'name', 'imageUrl', 'description', 'author_id', 'category_id')

@@ -4,13 +4,17 @@ from .extension import db
 class Students(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    birth_date = db.Column(db.String(10))
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    dob = db.Column(db.String(10))
     gender = db.Column(db.String(10))
     class_name = db.Column(db.String(10))
 
-    def __init__(self, name, birth_date, gender, class_name):
+    def __init__(self, name, email, password,  dob, gender, class_name):
         self.name = name
-        self.birth_date = birth_date
+        self.email = email
+        self.password = password
+        self.dob = dob
         self.gender = gender
         self.class_name = class_name
 
@@ -18,13 +22,15 @@ class Students(db.Model):
 class Books(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    page_count = db.Column(db.Integer)
+    image_url = db.Column(db.String(), nullable=False)
+    description = db.Column(db.String(), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
-    def __init__(self, name, page_count, author_id, category_id):
+    def __init__(self, name, image_url, description, author_id, category_id):
         self.name = name
-        self.page_count = page_count
+        self.image_url = image_url
+        self.description = description
         self.author_id = author_id
         self.category_id = category_id
 

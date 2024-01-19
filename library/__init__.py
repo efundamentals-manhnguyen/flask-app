@@ -1,4 +1,5 @@
 from flask import Flask, request, Blueprint, render_template
+from flask_cors import CORS
 from .books.controller import books
 from .borrow.controller import borrow
 from .students.controller import students
@@ -9,12 +10,13 @@ from .model import Students, Books, Author, Category, Borrows
 
 def create_app(config_file = "config.py"):
     app = Flask(__name__, static_url_path='',
-                  static_folder='build',
-                  template_folder='build')
+                  static_folder='../front_end',
+                  template_folder='../front_end')
+    CORS(app)
     app.config.from_pyfile(config_file)
     @app.route('/')
     def index():
-        return render_template('../front_end/index.html')
+        return render_template('index.html')
     db.init_app(app)
     ma.init_app(app)
     with app.app_context():

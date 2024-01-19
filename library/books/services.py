@@ -10,14 +10,15 @@ books_schema = BookSchema(many=True)
 
 def add_book_service():
     data = request.json
-    if (data and ('name' in data) and ('page_count' in data)
+    if (data and ('name' in data) and ('image_url' in data) and ('description' in data) 
             and ('author_id' in data) and ('category_id' in data)):
         name = data['name']
-        page_count = data['page_count']
+        image_url = data['image_url']
+        description = data['description']
         author_id = data['author_id']
         category_id = data['category_id']
         try:
-            new_book = Books(name, page_count, author_id, category_id)
+            new_book = Books(name, image_url, description, author_id, category_id)
             db.session.add(new_book)
             db.session.commit()
             return jsonify({"message": "Add success!"}), 200
@@ -37,11 +38,12 @@ def get_book_by_id_service(id):
     
 
 def get_all_books_service():
-    books = Books.query.all()
-    if books:
-        return books_schema.jsonify(books)
+    books = db.session.query(Books.name, Category.name).join(Category).all()
+    results = [tuple(row) for row in books]
+    if results:
+        return jsonify({"Books": results}), 200
     else:
-        return jsonify({"message": "Book not found"}), 404
+        return jsonify({"message": "Books not found"}), 404
     
 
 
@@ -49,10 +51,12 @@ def update_book_by_id_service(id):
     book = Books.query.get(id)
     data = request.json
     if book:
-        if (data and ("page_count" in data) and ("name" in data) and ("author_id" in data) and ("category_id" in data)):
+        if (data and ('name' in data) and ('image_url' in data) and ('description' in data) 
+                and ('author_id' in data) and ('category_id' in data)):
             try:
-                book.page_count = data['page_count']
                 book.name = data['name']
+                book.image_url = data['image_url']
+                book.description = data['description']
                 book.author_id = data['author_id']
                 book.category_id = data['category_id']
                 db.session.commit()

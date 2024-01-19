@@ -10,14 +10,16 @@ students_schema = StudentSchema(many=True)
 
 def add_student_service():
     data = request.json
-    if (data and ('name' in data) and ('birth_date' in data)
+    if (data and ('name' in data) and ('email' in data) and ('password' in data) and ('dob' in data)
             and ('gender' in data) and ('class_name' in data)):
         name = data['name']
-        birth_date = data['birth_date']
+        email = data['email']
+        password = data['password']
+        dob = data['dob']
         gender = data['gender']
         class_name = data['class_name']
         try:
-            new_student = Students(name, birth_date, gender, class_name)
+            new_student = Students(name, email, password, dob, gender, class_name)
             db.session.add(new_student)
             db.session.commit()
             return jsonify({"message": "Add success!"}), 200
