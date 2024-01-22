@@ -38,7 +38,7 @@ def get_book_by_id_service(id):
     
 
 def get_all_books_service():
-    books = db.session.query(Books.name, Books.image_url, Category.name).join(Category).all()
+    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id).join(Category).all()
     results = [tuple(row) for row in books]
     if results:
         return jsonify({"Books": results}), 200

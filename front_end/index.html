@@ -83,7 +83,7 @@
 										<label for="category-1">
 											<span></span>
 											${category.name}
-											<small>(120)</small>
+											<small>(${category.count})</small>
 										</label>
 									</div>`
 				document.querySelector(".aside:first-child .checkbox-filter").innerHTML += categoryHtml;
@@ -100,7 +100,7 @@
 										<label for="brand-1">
 											<span></span>
 											${author.name}
-											<small>(578)</small>
+											<small>(${author.count})</small>
 										</label>
 									</div>`
 				document.querySelector(".aside:nth-of-type(2) .checkbox-filter").innerHTML += categoryHtml;
