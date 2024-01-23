@@ -79,8 +79,8 @@
 			const categories = await loadCategories();
 			categories.forEach(category => {
 				const categoryHtml =`<div class="input-checkbox">
-										<input type="checkbox" id="category-1">
-										<label for="category-1">
+										<input type="checkbox" id="category-${category.id}" value="${category.name}">
+										<label for="category-${category.id}">
 											<span></span>
 											${category.name}
 											<small>(${category.count})</small>
@@ -95,15 +95,15 @@
 		addEventListener("DOMContentLoaded", async () => {
 			const authors = await loadAuthors();
 			authors.forEach(author => {
-				const categoryHtml =`<div class="input-checkbox">
-										<input type="checkbox" id="brand-1">
-										<label for="brand-1">
+				const authorHtml =`<div class="input-checkbox">
+										<input type="checkbox" id="brand-${author.id}" value="${author.name}" onclick="loadBooksByAuthor(value)">
+										<label for="brand-${author.id}">
 											<span></span>
 											${author.name}
 											<small>(${author.count})</small>
 										</label>
 									</div>`
-				document.querySelector(".aside:nth-of-type(2) .checkbox-filter").innerHTML += categoryHtml;
+				document.querySelector(".aside:nth-of-type(2) .checkbox-filter").innerHTML += authorHtml;
 			});
 		})
 	</script>

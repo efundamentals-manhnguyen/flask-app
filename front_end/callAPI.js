@@ -1,6 +1,9 @@
 let getBookApi = "http://127.0.0.1:5000/book-management/books"
 let getCategoryApi = "http://127.0.0.1:5000/category-management/categories"
 let getAuthorApi = "http://127.0.0.1:5000/author-management/authors"
+let getBookByAuthor = "/book-management/book/"
+
+
 
 async function loadBooks(){
     let listBooks = await fetch(getBookApi).then(res => res.json());
@@ -18,7 +21,7 @@ async function loadCategories(){
                 bookCountBycategory += 1
             }
         })
-        let data = {name: category.name, count: bookCountBycategory}
+        let data = {id: category.id, name: category.name, count: bookCountBycategory}
         categoryAndBookCount.push(data)
     })
     return categoryAndBookCount
@@ -35,9 +38,14 @@ async function loadAuthors(){
                 bookCountByAuthor += 1 
             }
         })
-        let data = {name: author.name, count: bookCountByAuthor}
+        let data = {id: author.id, name: author.name, count: bookCountByAuthor}
         authorAndBookCount.push(data)
     });
     return authorAndBookCount
 }
 
+async function loadBooksByAuthor(authorName){
+    let booksByAuthor = await  fetch(getBookByAuthor + authorName).then(res => res.json());
+    console.log(booksByAuthor)
+    return booksByAuthor
+}
