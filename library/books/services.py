@@ -83,10 +83,12 @@ def delete_book_by_id_service(id):
     
 
 def get_book_by_author_service(author):
-    books = Books.query.join(Author).filter(
+    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id).join(Category).join(Author).filter(
         func.lower(Author.name) == author.lower()).all()
-    if books:
-        return books_schema.jsonify(books)
+    results = [tuple(row) for row in books]
+    if results:
+        return jsonify({"Books": results}), 200
     else:
-        return jsonify({"message": f"Books not found {author}"}), 404
+        return jsonify({"message": "Books not found"}), 404
+   
     
