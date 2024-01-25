@@ -90,5 +90,15 @@ def get_book_by_author_service(author):
         return jsonify({"Books": results}), 200
     else:
         return jsonify({"message": "Books not found"}), 404
+
+
+def get_book_by_category_name_service(category):
+    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id).join(Author).join(Category).filter(
+        func.lower(Category.name) == category.lower()).all()
+    results = [tuple(row) for row in books]
+    if results:
+        return jsonify({"Books": results}), 200
+    else:
+        return jsonify({"message": "Books not found"}), 404
    
     
