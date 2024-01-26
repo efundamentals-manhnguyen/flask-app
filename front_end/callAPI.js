@@ -62,7 +62,6 @@ async function loadBooksByAuthor(authorName){
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>
                                     <h3 class="product-name"><a href="#">${book[0]}</a></h3>
-                                    <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -114,7 +113,6 @@ async function loadBooksByCategory(categoryName){
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>
                                     <h3 class="product-name"><a href="#">${book[0]}</a></h3>
-                                    <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -150,6 +148,19 @@ async function loadBooksByCategory(categoryName){
    
 }
 
+// Onclick function passing book_id to book detail page
+function quickViewFunction(id)
+{
+    window.location='./book.html?book_id='+id;
+}
+
+
+// Onclick function passing book_id to borrow page
+function borrowFunction(id)
+{
+    window.location='./borrow_checkout.html?book_id='+id;
+}
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     const books = await loadBooks();
@@ -163,7 +174,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>
                                     <h3 class="product-name"><a href="#">${book[0]}</a></h3>
-                                    <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -176,12 +186,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                                                 class="tooltipp">add to wishlist</span></button>
                                         <button class="add-to-compare"><i class="fa fa-exchange"></i><span
                                                 class="tooltipp">add to compare</span></button>
-                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
+                                        <button class="quick-view" onclick="quickViewFunction(${book[5]})"><i class="fa fa-eye"></i><span class="tooltipp">quick
                                                 view</span></button>
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Borrow</button>
+                                    <button class="add-to-cart-btn" onclick="borrowFunction(${book[5]})"><i class="fa fa-shopping-cart"></i>Borrow</button>
                                 </div>
                             </div>
                 </div>`

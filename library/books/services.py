@@ -38,7 +38,7 @@ def get_book_by_id_service(id):
     
 
 def get_all_books_service():
-    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id).join(Category).all()
+    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id, Books.id).join(Category).all()
     results = [tuple(row) for row in books]
     if results:
         return jsonify({"Books": results}), 200
@@ -83,7 +83,7 @@ def delete_book_by_id_service(id):
     
 
 def get_book_by_author_service(author):
-    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id).join(Category).join(Author).filter(
+    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id, Books.id).join(Category).join(Author).filter(
         func.lower(Author.name) == author.lower()).all()
     results = [tuple(row) for row in books]
     if results:
@@ -93,7 +93,7 @@ def get_book_by_author_service(author):
 
 
 def get_book_by_category_name_service(category):
-    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id).join(Author).join(Category).filter(
+    books = db.session.query(Books.name, Books.image_url, Category.name, Books.author_id, Books.category_id, Books.id).join(Author).join(Category).filter(
         func.lower(Category.name) == category.lower()).all()
     results = [tuple(row) for row in books]
     if results:
