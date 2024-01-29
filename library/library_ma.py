@@ -23,4 +23,4 @@ class BorrowSchema(ma.Schema):
 
 class BookSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'imageUrl', 'description', 'author_id', 'category_id')
+        fields = ('id', 'name', 'image_url', 'description', 'author_id', 'category_id')

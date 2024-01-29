@@ -30,11 +30,14 @@ def add_book_service():
     
 
 def get_book_by_id_service(id):
-    book = Books.query.get(id)
-    if book:
-        return book_schema.jsonify(book)
+    book = db.session.query(Books.name, Books.image_url, Books.description, Category.name, Author.name).join(Author, Books.author_id== Author.id).join(Category, Books.category_id == Category.id).filter(
+        Books.id == id
+    )
+    results = [tuple(row) for row in book]
+    if results:
+        return jsonify({"Books": results}), 200
     else:
-        return jsonify({"message": "Book not found"}), 404
+        return jsonify({"message": "Books not found"}), 404
     
 
 def get_all_books_service():
