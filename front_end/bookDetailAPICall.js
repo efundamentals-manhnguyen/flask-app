@@ -8,7 +8,6 @@ let bookId = match.groups.bookId
 
 document.addEventListener("DOMContentLoaded", async () => {
     let book = await fetch(getBookByIdApi + bookId).then(res => res.json());
-    console.log(book)
     const bookHtml =`<div class="row">
                 <!-- Product main img -->
                 <div class="col-md-5 col-md-push-2">
