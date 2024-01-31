@@ -151,14 +151,14 @@ async function loadBooksByCategory(categoryName){
 // Onclick function passing book_id to book detail page
 function quickViewFunction(id)
 {
-    window.location='./book.html?book_id='+id;
+    window.location='./book_detail_page.html?book_id='+id;
 }
 
 
 // Onclick function passing book_id to borrow page
 function borrowFunction(id)
 {
-    window.location='./borrow_checkout.html?book_id='+id;
+    window.location='./borrow_book_page.html?book_id='+id;
 }
 
 

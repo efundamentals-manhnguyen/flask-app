@@ -6,6 +6,12 @@ const regex = /book_id=(?<bookId>\d+)/;
 const match = regex.exec(currentUrl);
 let bookId = match.groups.bookId
 
+
+function borrowFunction(id)
+{
+    window.location='./borrow_book_page.html?book_id='+id;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     let book = await fetch(getBookByIdApi + bookId).then(res => res.json());
     const bookHtml =`<div class="row">
@@ -45,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <p>Category: ${book.Books[0][3]}</p>
                         </br></br></br></br></br></br></br></br></br></br>
                         <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Borrow</button>
+                            <button class="add-to-cart-btn" onclick="borrowFunction(${bookId})"><i class="fa fa-shopping-cart"></i>Borrow</button>
                         </div>
                     </div>
                 </div>
