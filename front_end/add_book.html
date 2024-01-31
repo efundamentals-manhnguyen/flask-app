@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - Library</title>
+		<title>Electro - HTML Ecommerce Template</title>
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -26,6 +26,7 @@
 
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
     </head>
 	<body>
 		<!-- HEADER -->
@@ -87,13 +88,22 @@
 
 								<!-- Cart -->
 								<div class="dropdown">
-									<a class="dropdown-toggle" aria-expanded="true">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
 										<div class="qty">3</div>
 									</a>
 								</div>
 								<!-- /Cart -->
+
+								<!-- Menu Toogle -->
+								<div class="menu-toggle">
+									<a href="#">
+										<i class="fa fa-bars"></i>
+										<span>Menu</span>
+									</a>
+								</div>
+								<!-- /Menu Toogle -->
 							</div>
 						</div>
 						<!-- /ACCOUNT -->
@@ -114,7 +124,8 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li><a href="#">Book Details</a></li>
+						<li><a href="#">Adding new books to the Electro Library</a></li>
+					</ul>
 					<!-- /NAV -->
 				</div>
 				<!-- /responsive-nav -->
@@ -128,6 +139,34 @@
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
+				<div class="row">
+					<div class="col-md-7">
+						<!-- Billing Details -->
+						<div class="billing-details">
+							<div class="section-title">
+								<h3 class="title">Add a new book</h3>
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="name" placeholder="Book Name">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="image_url" placeholder="Book Image Url">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="description" placeholder="Description">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="author-id" placeholder="Author ID">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="category-id" placeholder="Category ID">
+							</div>
+							</br></br>
+							<button class="primary-btn order-submit" onclick="handleBorrowForm()">Borrow Book</button>
+						</div>
+						<!-- /Billing Details -->
+					</div>
+				</div>
 				<!-- /row -->
 			</div>
 			<!-- /container -->
@@ -273,6 +312,5 @@
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
-		<script src="./api_js/bookDetailAPICall.js"></script>
 	</body>
 </html>
