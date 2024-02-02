@@ -5,9 +5,9 @@ let searchBorrowByStudentNameApi = "http://127.0.0.1:5000/borrow-management/borr
 
 document.addEventListener("DOMContentLoaded", async () => {
     let borrows = await fetch(getAllBorrowedBooksApi).then(res => res.json());
-    borrows.Books.forEach(borrow => {
+    borrows.Books.forEach((borrow, index)=> {
         const bookHtml =` <tr>
-                            <th scope="row">${borrow[0]}</th>
+                            <th scope="row">${index + 1}</th>
                             <td>${borrow[1]}</td>
                             <td>${borrow[2]}</td>
                             <td>${borrow[3]}</td>
@@ -50,9 +50,9 @@ async function searchBorrowByStudentName(){
     console.log(borrows)
     if(borrows['message'] !== "Not found borrow!"){
         document.querySelector(".table tbody").innerHTML = "";
-        borrows.Borrow.forEach(borrow => {
+        borrows.Borrow.forEach((borrow, index) => {
             const bookHtml =` <tr>
-                                <th scope="row">${borrow[0]}</th>
+                                <th scope="row">${index + 1}</th>
                                 <td>${borrow[1]}</td>
                                 <td>${borrow[2]}</td>
                                 <td>${borrow[3]}</td>

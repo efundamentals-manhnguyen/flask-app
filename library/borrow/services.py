@@ -6,7 +6,7 @@ from sqlalchemy.sql import func
 
 def get_borrow_author_cat_service(student_name):
     borrows = db.session.query(Borrows.id, Books.name, Author.name, Category.name, Borrows.borrow_date, Borrows.return_date, Books.image_url, Students.name, Students.class_name).join(Students, Borrows.student_id == Students.id).join(Books, Borrows.book_id == Books.id).join(
-        Category, Books.category_id == Category.id).filter(func.lower(Students.name) == student_name.lower()).all()
+        Category, Books.category_id == Category.id).join(Author, Books.author_id == Author.id).filter(func.lower(Students.name) == student_name.lower()).all()
     results = [tuple(row) for row in borrows]
     if results:
         return jsonify({"Borrow": results}), 200
