@@ -5,19 +5,20 @@ from sqlalchemy.sql import func
 
 
 def get_borrow_author_cat_service(student_name):
-    borrows = db.session.query(Borrows.id, Books.name, Category.name, Author.name).join(Students, Borrows.student_id == Students.id).join(Books, Borrows.book_id == Books.id).join(
-        Category, Books.category_id == Category.id).join(Author, Books.author_id == Author.id).filter(func.lower(Students.name) == student_name.lower()).all()
+    borrows = db.session.query(Borrows.id, Books.name, Author.name, Category.name, Borrows.borrow_date, Borrows.return_date, Books.image_url, Students.name, Students.class_name).join(Students, Borrows.student_id == Students.id).join(Books, Borrows.book_id == Books.id).join(
+        Category, Books.category_id == Category.id).filter(func.lower(Students.name) == student_name.lower()).all()
     results = [tuple(row) for row in borrows]
     if results:
-        return jsonify({f"{student_name} borrowed": results}), 200
+        return jsonify({"Borrow": results}), 200
     else:
         return jsonify({"message": "Not found borrow!"}), 404
    
 def get_all_borrowed_book_service():
-    books = db.session.query(Borrows.id, Books.name).join(Books).all()
+    books = db.session.query(Borrows.id, Books.name, Author.name, Category.name, Borrows.borrow_date, Borrows.return_date, Books.image_url, Students.name, Students.class_name).join(Students, Borrows.student_id == Students.id).join(Books, Borrows.book_id == Books.id).join(
+        Category, Books.category_id == Category.id).join(Author, Books.author_id == Author.id).all()
     results = [tuple(row) for row in books]
     if results:
-        return jsonify({"Borrowed books": results}), 200
+        return jsonify({"Books": results}), 200
     else:
         return jsonify({"message": "Borrowed book not found"}), 404
     
