@@ -13,8 +13,7 @@
 
  		<!-- Bootstrap -->
  		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
- 		<!-- Slick -->
+		<!-- Slick -->
  		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
  		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
 
@@ -145,10 +144,16 @@
 								<input class="input" type="text" name="description" placeholder="Description">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="author-id" placeholder="Author ID">
+								<input class="input" list="authors" type="text" name="author-name" placeholder="Author">
+								<datalist id="authors">
+									<!-- /Author List -->
+								</datalist>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="category-id" placeholder="Category ID">
+								<input class="input" list="categories" type="text" name="category-name" placeholder="Category">
+								<datalist id="categories">
+									<!-- /Category List -->
+								</datalist>
 							</div>
 							</br></br>
 							<button class="primary-btn order-submit" onclick="handleAddBookForm()">Add To Library</button>

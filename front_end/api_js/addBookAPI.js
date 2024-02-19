@@ -1,4 +1,16 @@
 let addBookApi = "http://127.0.0.1:5000/book-management/book"
+let getAuthorApi = "http://127.0.0.1:5000/author-management/authors"
+let getCategoryApi = "http://127.0.0.1:5000/category-management/categories"
+
+async function loadAuthors(){
+    let listAuthors = await fetch(getAuthorApi).then(res => res.json());
+    return listAuthors;
+}
+
+async function loadCategories(){
+    let listCategories = await fetch(getCategoryApi).then(res => res.json());
+    return listCategories;
+}
 
 function addBook(data){
     fetch(addBookApi, {
@@ -19,12 +31,28 @@ function addBook(data){
         })
 }
 
-function handleAddBookForm(){
+async function handleAddBookForm(){
     let name = document.querySelector("input[name='name']").value
     let image_url = document.querySelector("input[name='image-url']").value
     let description = document.querySelector("input[name='description']").value
-    let author_id = document.querySelector("input[name='author-id']").value
-    let category_id = document.querySelector("input[name='category-id']").value
+    let author_name = document.querySelector("input[name='author-name']").value
+    let category_name = document.querySelector("input[name='category-name']").value
+
+    let author_id
+    let category_id
+    let authors = await loadAuthors();
+    authors.forEach(author => {
+        if(author['name'] == author_name){
+            author_id = author['id']
+        }
+    });
+
+    let categories = await loadCategories();
+    categories.forEach(category => {
+        if(category['name'] == category_name){
+            category_id = category['id']
+        }
+    });
 
     if(name && image_url  && description && author_id && category_id )
     {
@@ -40,3 +68,17 @@ function handleAddBookForm(){
         alert("Please fullfill all fields in the form!!!!")
     }
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+    let authors = await loadAuthors();
+    authors.forEach(author => {
+        const authorHtml =`<option value="${author['name']}">`
+        document.querySelector("#authors").innerHTML += authorHtml;
+    });
+
+    let categories = await loadCategories();
+    categories.forEach(category => {
+        const categoryHtml =`<option value="${category['name']}">`
+        document.querySelector("#categories").innerHTML += categoryHtml;
+    });
+})
