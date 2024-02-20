@@ -1,6 +1,8 @@
 let addBookApi = "http://127.0.0.1:5000/book-management/book"
 let getAuthorApi = "http://127.0.0.1:5000/author-management/authors"
 let getCategoryApi = "http://127.0.0.1:5000/category-management/categories"
+let addAuthor = "http://127.0.0.1:5000/author-management/author"
+let addCate = "http://127.0.0.1:5000/category-management/category"
 
 async function loadAuthors(){
     let listAuthors = await fetch(getAuthorApi).then(res => res.json());
@@ -31,13 +33,75 @@ function addBook(data){
         })
 }
 
+// check if author name already exists
+async function doesAuthorExist(author_name){
+    let x = 0
+    let author_list = document.querySelectorAll("#authors option")
+    author_list.forEach(name => {
+        if(author_name == name.getAttribute("value")){
+            x += 1 
+        }
+    })
+    if(x == 0){
+        await fetch(addAuthor, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"name": author_name})
+        })
+        .then(function(response){
+            if(response.status == 200){
+                console.log("Author added!")
+            }
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    } 
+}
+
+// check if category name already exists
+async function doesCateExist(category_name){
+    let y = 0
+    let cate_list = document.querySelectorAll("#categories option")
+    cate_list.forEach(name => {
+        if(category_name == name.getAttribute("value")){
+            y += 1 
+        }
+    })
+    if(y == 0){
+        await fetch(addCate, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"name": category_name})
+        })
+        .then(function(response){
+            if(response.status == 200){
+                console.log("Cate added!")
+            }
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    }
+}
+
 async function handleAddBookForm(){
     let name = document.querySelector("input[name='name']").value
     let image_url = document.querySelector("input[name='image-url']").value
     let description = document.querySelector("input[name='description']").value
     let author_name = document.querySelector("input[name='author-name']").value
     let category_name = document.querySelector("input[name='category-name']").value
+    console.log(author_name + "----" +  category_name)
 
+    // check if author and category name already exist
+    await doesAuthorExist(author_name)
+    await doesCateExist(category_name)
+
+    //get author_id and cate_id from data by comparing author and cate name
     let author_id
     let category_id
     let authors = await loadAuthors();
@@ -54,6 +118,7 @@ async function handleAddBookForm(){
         }
     });
 
+    // validate data
     if(name && image_url  && description && author_id && category_id )
     {
         let data = {
