@@ -3,6 +3,7 @@ let getAuthorApi = "http://127.0.0.1:5000/author-management/authors"
 let getCategoryApi = "http://127.0.0.1:5000/category-management/categories"
 let addAuthor = "http://127.0.0.1:5000/author-management/author"
 let addCate = "http://127.0.0.1:5000/category-management/category"
+let uploadedImage;
 
 async function loadAuthors(){
     let listAuthors = await fetch(getAuthorApi).then(res => res.json());
@@ -145,5 +146,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     categories.forEach(category => {
         const categoryHtml =`<option value="${category['name']}">`
         document.querySelector("#categories").innerHTML += categoryHtml;
+    });
+
+    document.getElementById("uploaded-file").addEventListener("change", async (ev) => {
+        const file = ev.target.files[0];
+        const fileName = file.name;
+        const res = await fetch(`http://127.0.0.1:5000/book-management/book/upload/${fileName}`, {
+            method: "POST",
+            body: file
+        });
+        console.log(res);
     });
 })

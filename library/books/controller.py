@@ -1,4 +1,6 @@
 from flask import Blueprint
+import os
+from flask import request
 from .services import add_book_service, get_book_by_id_service, get_all_books_service, update_book_by_id_service, delete_book_by_id_service, get_book_by_author_service, get_book_by_category_name_service
 books = Blueprint("books", __name__)
 
@@ -8,6 +10,19 @@ books = Blueprint("books", __name__)
 def add_book():
     return add_book_service()
 
+@books.route("/book-management/book/upload/<filename>", methods=["POST"])
+def post_file(filename):
+    """Upload a file."""
+
+    # if "/" in filename:
+    #     # Return 400 BAD REQUEST
+    #     abort(400, "no subdirectories allowed")
+    dirname = os.path.dirname(__file__)
+    with open(os.path.join(dirname, "../../front_end/img/", filename), "wb") as fp:
+        fp.write(request.data)
+
+    # Return 201 CREATED
+    return "", 201
 
 #get a book by id
 @books.route("/book-management/book/<int:id>", methods=['GET'])
