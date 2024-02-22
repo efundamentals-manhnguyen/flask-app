@@ -151,6 +151,7 @@ async function handleAddBookForm(){
 window.addEventListener('load', function() {
     document.querySelector('#uploaded-file').addEventListener('change', function() {
         let img = document.querySelector('#uploaded-file + img');
+        img.style.display = ""
         img.onload = () => {
             URL.revokeObjectURL(img.src);  // no longer needed, free memory
         }
