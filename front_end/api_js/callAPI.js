@@ -57,7 +57,7 @@ async function loadBooksByAuthor(authorName){
                 html += `<div class="col-md-4 col-xs-6">
                             <div class="product">
                                 <div class="product-img">
-                                    <img src="./img/${book[1]}.webp" alt="">
+                                    <img src="./img/${book[1]}" alt="">
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>
@@ -108,7 +108,7 @@ async function loadBooksByCategory(categoryName){
                 html += `<div class="col-md-4 col-xs-6">
                             <div class="product">
                                 <div class="product-img">
-                                    <img src="./img/${book[1]}.webp" alt="">
+                                    <img src="./img/${book[1]}" alt="">
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="col-md-4 col-xs-6">
                             <div class="product">
                                 <div class="product-img">
-                                    <img src="./img/${book[1]}.webp" alt="">
+                                    <img src="./img/${book[1]}" alt="">
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>

@@ -92,7 +92,7 @@ async function doesCateExist(category_name){
 
 async function handleAddBookForm(){
     let name = document.querySelector("input[name='name']").value
-    let image_url = document.querySelector("input[name='image-url']").value
+    let image_url
     let description = document.querySelector("input[name='description']").value
     let author_name = document.querySelector("input[name='author-name']").value
     let category_name = document.querySelector("input[name='category-name']").value
@@ -119,6 +119,12 @@ async function handleAddBookForm(){
         }
     });
 
+    // check if book image is loaded
+    const file = document.getElementById("uploaded-file").files[0];
+    if(file){
+        image_url = file.name;
+    }
+
     // validate data
     if(name && image_url  && description && author_id && category_id )
     {
@@ -129,11 +135,29 @@ async function handleAddBookForm(){
             author_id: author_id,
             category_id: category_id
         }
+        // add book image to img file
+        await fetch(`http://127.0.0.1:5000/book-management/book/upload/${image_url}`, {
+            method: "POST",
+            body: file
+        });
+        //add book
         addBook(data)
     }else{
         alert("Please fullfill all fields in the form!!!!")
     }
 }
+
+// load image on the page img tag
+window.addEventListener('load', function() {
+    document.querySelector('#uploaded-file').addEventListener('change', function() {
+        let img = document.querySelector('#uploaded-file + img');
+        img.onload = () => {
+            URL.revokeObjectURL(img.src);  // no longer needed, free memory
+        }
+  
+        img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+    });
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
     let authors = await loadAuthors();
@@ -146,15 +170,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     categories.forEach(category => {
         const categoryHtml =`<option value="${category['name']}">`
         document.querySelector("#categories").innerHTML += categoryHtml;
-    });
-
-    document.getElementById("uploaded-file").addEventListener("change", async (ev) => {
-        const file = ev.target.files[0];
-        const fileName = file.name;
-        const res = await fetch(`http://127.0.0.1:5000/book-management/book/upload/${fileName}`, {
-            method: "POST",
-            body: file
-        });
-        console.log(res);
     });
 })

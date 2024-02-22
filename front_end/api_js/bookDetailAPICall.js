@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
                         <div class="product-preview">
-                            <img src="./img/${book.Books[0][1]}.webp" alt="">
+                            <img src="./img/${book.Books[0][1]}" alt="">
                         </div>
                     </div>
                 </div>
@@ -29,15 +29,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
                         <div class="product-preview">
-                            <img src="./img/${book.Books[0][1]}.webp" alt="">
+                            <img src="./img/${book.Books[0][1]}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/${book.Books[0][1]}.webp" alt="">
+                            <img src="./img/${book.Books[0][1]}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/${book.Books[0][1]}.webp" alt="">
+                            <img src="./img/${book.Books[0][1]}" alt="">
                         </div>
                     </div>
                 </div>

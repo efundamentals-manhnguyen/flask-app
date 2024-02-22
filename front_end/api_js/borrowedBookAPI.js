@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <td>${borrow[4]}</td>
                             <td>${borrow[5]}</td>
                             <td>
-                                <img src="./img/${borrow[6]}.webp" alt="" style="width: 70px; height: 70px;">
+                                <img src="./img/${borrow[6]}" alt="" style="width: 70px; height: 70px;">
                             </td>
                             <td>${borrow[7]}</td>
                             <td>${borrow[8]}</td>
@@ -59,7 +59,7 @@ async function searchBorrowByStudentName(){
                                 <td>${borrow[4]}</td>
                                 <td>${borrow[5]}</td>
                                 <td>
-                                    <img src="./img/${borrow[6]}.webp" alt="" style="width: 70px; height: 70px;">
+                                    <img src="./img/${borrow[6]}" alt="" style="width: 70px; height: 70px;">
                                 </td>
                                 <td>${borrow[7]}</td>
                                 <td>${borrow[8]}</td>

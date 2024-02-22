@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <div class="order-col">
                                 <div>Book Image:</div>
                                 <div>
-                                    <img src="./img/${book.Books[0][1]}.webp" alt="" style="height: 200px; width: 200px;">
+                                    <img src="./img/${book.Books[0][1]}" alt="" style="height: 200px; width: 200px;">
                                 </div>
                             </div>
                         </div>
