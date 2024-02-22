@@ -1,0 +1,5 @@
+# ignore db files
+*.db
+
+# ignore pychace file
+*.pyc
