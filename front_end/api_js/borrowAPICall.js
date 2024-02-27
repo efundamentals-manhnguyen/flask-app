@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         </div>
                     </div>`
     document.querySelector(".order-details").innerHTML += bookHtml;
+    document.querySelector("input[name='book-id']").value = book.Books[0][0];
 })
 
 
@@ -50,14 +51,18 @@ function addBorrowBook(data){
         },
         body: JSON.stringify(data)
     })
-        .then(response => console.log(response.status))
-        .catch(function(error){
-            console.log(error)
-        })
+    .then(function(response){
+        if(response.status == 200){
+            window.location = './borrowed_books_page.html'
+            alert("Boroww is  done!")
+        }
+    })
+    .catch(function(error){
+        console.log(error)
+    })
 }
 
 function handleBorrowForm(){
-    let bookId = document.querySelector("input[name='book-id']").value
     let studentId = document.querySelector("input[name='student-id']").value
     let borrowDate = document.querySelector("input[name='borrow-date']").value
     let returnDate = document.querySelector("input[name='return-date']").value
