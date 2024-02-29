@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .services import add_student_service, get_all_students_service, delete_student_by_id_service, get_student_by_id_service, update_student_by_id_service
+from .services import add_student_service, get_all_students_service, delete_student_by_id_service, get_student_by_id_service, update_student_by_id_service, login_service
 students = Blueprint("students", __name__)
 
 
@@ -32,6 +32,9 @@ def delete_student(id):
 def update_student(id):
     return update_student_by_id_service(id)
 
-
+# login
+@students.route("/student-management/student/login", methods=['POST'])
+def student_login():
+    return login_service()
 
 
