@@ -77,19 +77,3 @@ def update_student_by_id_service(id):
                 return jsonify({"message": "Student can not be updated"}), 400
     else:
         return jsonify({"message": "Student not found"}), 404
-
-
-def login_service():
-    data = request.json
-    if (data and("email" in data) and ("password" in data)):
-        email = data['email']
-        password = data['password']
-      
-        students = students_schema.dump(Students.query.all())
-        for student in students :
-            if(email == student['email'] and password == student['password']):
-                return jsonify({"message": "Login success"}), 200
-            else:
-                return jsonify({"message": "Login failed"}), 404
-    else:
-        return jsonify({"message": "Please fill login form!!!"}), 404

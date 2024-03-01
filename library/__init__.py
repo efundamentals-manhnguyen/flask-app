@@ -4,6 +4,7 @@ from .books.controller import books
 from .borrow.controller import borrow
 from .students.controller import students
 from .category_author.controller import category
+from .authen.controller import authen
 from .extension import db, ma
 from .model import Students, Books, Author, Category, Borrows
 
@@ -25,4 +26,5 @@ def create_app(config_file = "config.py"):
     app.register_blueprint(borrow)
     app.register_blueprint(category)
     app.register_blueprint(students)
+    app.register_blueprint(authen)
     return app

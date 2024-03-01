@@ -24,7 +24,6 @@ function login(data){
 function handleLogin(){
     let email = document.querySelector("input[name='email']").value
     let password = document.querySelector("input[name='password']").value
-
     // validate data
     if(email && password)
     {
@@ -32,6 +31,7 @@ function handleLogin(){
             email: email,
             password: password,
         }
+        console.log(data)
         //log in
         login(data)
     }else{
