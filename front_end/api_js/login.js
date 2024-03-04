@@ -1,23 +1,27 @@
 let loginApi = "http://127.0.0.1:5000/student-management/student/login"
 
-function login(data){
-    fetch(loginApi, {
+async function login(data){
+    await fetch(loginApi, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     })
-        .then(function(response){
+        .then(async function(response){
             if(response.status == 200){
-                window.location = './index.html'
-                alert("Login success!")
+                let resultJson = await response.json()
+                console.log(resultJson['x-access-token'])
+                if(resultJson['x-access-token']){
+                    window.location = './index.html'
+                    alert("Login success!")
+                }
             }else{
                 alert("Login failed!")
             }
         })
         .catch(function(error){
-            console.log(error)
+            console.error(error)
         })
 }
 
@@ -31,7 +35,6 @@ function handleLogin(){
             email: email,
             password: password,
         }
-        console.log(data)
         //log in
         login(data)
     }else{

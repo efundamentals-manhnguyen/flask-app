@@ -11,6 +11,35 @@ SECRET_KEY = os.environ.get("KEY")
 SECURITY_ALGORITHM = 'HS256'
 
 
+#decorator for verifying the JWT
+def token_required(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        token = None
+        # jwt is passed in the request header
+        if 'x-access-token' in request.headers:
+            token = request.args.get('x-access-token')
+            print(token)
+        # return 401 if token is not passed
+        if not token:
+            return jsonify({'message' : 'Token is missing !!'}), 401
+        
+        try:
+            # decoding the payload to fetch the stored details
+            data = jwt.decode(token, SECRET_KEY)
+            current_user = Students.query.filter_by(id = data['id']).first()
+        except:
+            return jsonify({
+                'message' : 'Token is invalid !!'
+            }), 401
+            raise
+        # returns the current logged in users context to the routes
+        return  func(current_user, *args, **kwargs)
+  
+    return decorated
+
+
+
 def generate_token(student_id):
     expire = datetime.utcnow() + timedelta(
         seconds = 60 * 60 * 24 * 3 # Expired after 3 days
@@ -27,39 +56,12 @@ def login_service():
     if (data and("email" in data) and ("password" in data)):
         email = data['email']
         password = data['password']
-      
         student = students_schema.dump(Students.query.filter_by(email = email, password = password))
         if(student):   
             token =  generate_token(student[0]['id']) 
-            return token
+            return jsonify({'x-access-token': token}), 200
         else:
-            return jsonify({"message": "Login failed"}), 404
+            return jsonify({"message": "Login failed"}), 403
     else:
         return jsonify({"message": "Please fill login form!!!"}), 404
     
-
-#decorator for verifying the JWT
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = None
-        # jwt is passed in the request header
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
-        # return 401 if token is not passed
-        if not token:
-            return jsonify({'message' : 'Token is missing !!'}), 401
-        
-        try:
-            # decoding the payload to fetch the stored details
-            data = jwt.decode(token, SECRET_KEY)
-            current_user = Students.query.filter_by(id = data['id']).first()
-        except:
-            return jsonify({
-                'message' : 'Token is invalid !!'
-            }), 401
-            raise
-        # returns the current logged in users context to the routes
-        return  f(current_user, *args, **kwargs)
-  
-    return decorated
