@@ -11,8 +11,8 @@ async function login(data){
         .then(async function(response){
             if(response.status == 200){
                 let resultJson = await response.json()
-                console.log(resultJson['x-access-token'])
                 if(resultJson['x-access-token']){
+                    localStorage.setItem('x-access-token', resultJson['x-access-token']);
                     window.location = './index.html'
                     alert("Login success!")
                 }

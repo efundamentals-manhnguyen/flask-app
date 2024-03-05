@@ -3,41 +3,11 @@ from library.model import Students
 from flask import request, jsonify
 import jwt, os
 from datetime import datetime, timedelta
-from functools import wraps
 student_schema = StudentSchema()
 students_schema = StudentSchema(many=True)
 
 SECRET_KEY = os.environ.get("KEY")
 SECURITY_ALGORITHM = 'HS256'
-
-
-#decorator for verifying the JWT
-def token_required(func):
-    @wraps(func)
-    def decorated(*args, **kwargs):
-        token = None
-        # jwt is passed in the request header
-        if 'x-access-token' in request.headers:
-            token = request.args.get('x-access-token')
-            print(token)
-        # return 401 if token is not passed
-        if not token:
-            return jsonify({'message' : 'Token is missing !!'}), 401
-        
-        try:
-            # decoding the payload to fetch the stored details
-            data = jwt.decode(token, SECRET_KEY)
-            current_user = Students.query.filter_by(id = data['id']).first()
-        except:
-            return jsonify({
-                'message' : 'Token is invalid !!'
-            }), 401
-            raise
-        # returns the current logged in users context to the routes
-        return  func(current_user, *args, **kwargs)
-  
-    return decorated
-
 
 
 def generate_token(student_id):
@@ -61,7 +31,7 @@ def login_service():
             token =  generate_token(student[0]['id']) 
             return jsonify({'x-access-token': token}), 200
         else:
-            return jsonify({"message": "Login failed"}), 403
+            return jsonify({"message": "Login failed"}), 401
     else:
         return jsonify({"message": "Please fill login form!!!"}), 404
     
