@@ -13,6 +13,7 @@ async function login(data){
                 let resultJson = await response.json()
                 if(resultJson['x-access-token']){
                     localStorage.setItem('x-access-token', resultJson['x-access-token']);
+                    localStorage.setItem('x-user-name', resultJson['x-user-name']);
                     window.location = './index.html'
                     alert("Login success!")
                 }

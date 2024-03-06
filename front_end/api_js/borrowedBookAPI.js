@@ -2,6 +2,15 @@ let getAllBorrowedBooksApi = "http://127.0.0.1:5000/borrow-management/borrow/boo
 let deleteBorrowedBookApi = "http://127.0.0.1:5000/borrow-management/borrow/"
 let searchBorrowByStudentNameApi = "http://127.0.0.1:5000/borrow-management/borrow/"
 
+let xAccessToken = localStorage.getItem("x-access-token");
+let xUserName = localStorage.getItem("x-user-name");
+
+window.onload = function() {
+    if(xUserName){
+        document.querySelector(".header-links a span").innerHTML = xUserName
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     let borrows = await fetch(getAllBorrowedBooksApi).then(res => res.json());
@@ -31,7 +40,8 @@ function deleteBorrowedBook(borrowId){
     fetch(deleteBorrowedBookApi + borrowId,  {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-access-token': xAccessToken
         },
     }).then(function(response){
         if(response.status == 200){

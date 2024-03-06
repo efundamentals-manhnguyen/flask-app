@@ -29,7 +29,7 @@ def login_service():
         student = students_schema.dump(Students.query.filter_by(email = email, password = password))
         if(student):   
             token =  generate_token(student[0]['id']) 
-            return jsonify({'x-access-token': token}), 200
+            return jsonify({'x-access-token': token, 'x-user-name': student[0]['name']}), 200
         else:
             return jsonify({"message": "Login failed"}), 401
     else:

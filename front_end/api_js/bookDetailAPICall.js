@@ -5,6 +5,13 @@ const currentUrl = window.location.href
 const regex = /book_id=(?<bookId>\d+)/;
 const match = regex.exec(currentUrl);
 let bookId = match.groups.bookId
+let xUserName = localStorage.getItem("x-user-name");
+
+window.onload = function() {
+    if(xUserName){
+        document.querySelector(".header-links a span").innerHTML = xUserName
+    }
+}
 
 
 function borrowFunction(id)
