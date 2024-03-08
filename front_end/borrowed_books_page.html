@@ -37,7 +37,12 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-user-o"></i><span>Log in</span></a></li>
+						<li>
+							<a class="login" href="./login_page.html"><i class="fa fa-user-o"></i><span>Log in</span></a>
+						</li>
+						<li>
+							<a class="logout" href="#" onclick="handleLogOut()"><i class="fa fa-sign-out"></i><span>Sign out</span></a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -294,5 +299,7 @@
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="./api_js/borrowedBookAPI.js"></script>
+		<script src="./api_js/logout.js"></script>
+		<script src="./api_js/user_account_display.js"></script>
 	</body>
 </html>

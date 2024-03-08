@@ -1,12 +1,14 @@
 from flask import Blueprint
 import os
 from flask import request
+from ..auth_security.auth_middleware import token_required
 from .services import add_book_service, get_book_by_id_service, get_all_books_service, update_book_by_id_service, delete_book_by_id_service, get_book_by_author_service, get_book_by_category_name_service
 books = Blueprint("books", __name__)
 
 
 #add a new book
 @books.route("/book-management/book", methods=['POST'])
+@token_required
 def add_book():
     return add_book_service()
 
@@ -38,12 +40,14 @@ def get_all_books():
 
 #update a book
 @books.route("/book-management/book/<int:id>", methods=['PUT'])
+@token_required
 def update_book_by_id(id):
     return update_book_by_id_service(id)
 
 
 #delete a book
 @books.route("/book-management/book/<int:id>", methods=['DELETE'])
+@token_required
 def delete_book_by_id(id):
     return delete_book_by_id_service(id)
 

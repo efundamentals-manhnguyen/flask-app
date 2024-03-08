@@ -3,13 +3,6 @@ let deleteBorrowedBookApi = "http://127.0.0.1:5000/borrow-management/borrow/"
 let searchBorrowByStudentNameApi = "http://127.0.0.1:5000/borrow-management/borrow/"
 
 let xAccessToken = localStorage.getItem("x-access-token");
-let xUserName = localStorage.getItem("x-user-name");
-
-window.onload = function() {
-    if(xUserName){
-        document.querySelector(".header-links a span").innerHTML = xUserName
-    }
-}
 
 
 document.addEventListener("DOMContentLoaded", async () => {

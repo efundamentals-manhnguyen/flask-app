@@ -4,13 +4,7 @@ let getCategoryApi = "http://127.0.0.1:5000/category-management/categories"
 let addAuthor = "http://127.0.0.1:5000/author-management/author"
 let addCate = "http://127.0.0.1:5000/category-management/category"
 let uploadedImage;
-let xUserName = localStorage.getItem("x-user-name");
-
-window.onload = function() {
-    if(xUserName){
-        document.querySelector(".header-links a span").innerHTML = xUserName
-    }
-}
+let xAccessToken = localStorage.getItem("x-access-token");
 
 async function loadAuthors(){
     let listAuthors = await fetch(getAuthorApi).then(res => res.json());
@@ -26,7 +20,8 @@ function addBook(data){
     fetch(addBookApi, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-access-token': xAccessToken
         },
         body: JSON.stringify(data)
     })
@@ -34,6 +29,10 @@ function addBook(data){
             if(response.status == 200){
                 window.location = './index.html'
                 alert("Book added!")
+            }
+            if(response.status == 401){
+                alert("Please login !")
+                window.location = './index.html'
             }
         })
         .catch(function(error){

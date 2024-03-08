@@ -7,13 +7,6 @@ const regex = /book_id=(?<bookId>\d+)/;
 const match = regex.exec(currentUrl);
 let bookId = match.groups.bookId;
 let xAccessToken = localStorage.getItem("x-access-token");
-let xUserName = localStorage.getItem("x-user-name");
-
-window.onload = function() {
-    if(xUserName){
-        document.querySelector(".header-links a span").innerHTML = xUserName
-    }
-}
 
 document.addEventListener("DOMContentLoaded", async () => {
     let book = await fetch(getBookByIdApi + bookId).then(res => res.json());

@@ -3,13 +3,6 @@ let getCategoryApi = "http://127.0.0.1:5000/category-management/categories"
 let getAuthorApi = "http://127.0.0.1:5000/author-management/authors"
 let getBookByAuthor = "http://127.0.0.1:5000/book-management/book/author/"
 let getBookByCategory = "http://127.0.0.1:5000/book-management/book/category/"
-let xUserName = localStorage.getItem("x-user-name");
-
-window.onload = function() {
-    if(xUserName){
-        document.querySelector(".header-links a span").innerHTML = xUserName
-    }
-}
 
 
 async function loadBooks(){
