@@ -2222,3 +2222,15 @@ textarea.input {
   transition: transform 0.3s ease-in-out;
   padding: 8px;
 }
+
+.validation-message {
+  color: red;
+}
+
+.is-display {
+  display: block;
+}
+
+.is-hidden {
+  display: none;
+}
