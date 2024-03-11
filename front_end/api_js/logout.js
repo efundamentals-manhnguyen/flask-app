@@ -1,6 +1,7 @@
 function logOut(){
     localStorage.removeItem('x-access-token');
     localStorage.removeItem('x-user-name');
+    alert("Log out successfully!")
     window.location = './index.html'
 }
 

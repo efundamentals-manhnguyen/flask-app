@@ -171,7 +171,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">${book[2]}</p>
-                                    <h3 class="product-name"><a href="#">${book[0]}</a></h3>
+                                    <h3 class="product-name">
+                                        <div class="product-full-name">${book[0]}</div>
+                                        <a class="product-link" href="#">${book[0]}</a>
+                                    </h3>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>

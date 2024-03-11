@@ -2188,3 +2188,37 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+.product-name{
+  position: relative;
+}
+
+.product-link {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-name:hover > .product-full-name{
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.product-full-name {
+  background-color: #ffffff;
+  border-radius: 4.8px;
+  box-shadow: 0px 0.5px 3px 0px rgba(40, 40, 40, 0.8);
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 10px;
+  transform: scale(0);
+  transition: transform 0.3s ease-in-out;
+  padding: 8px;
+}
