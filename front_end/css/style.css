@@ -2234,3 +2234,7 @@ textarea.input {
 .is-hidden {
   display: none;
 }
+
+.null-input-error-message {
+  color: red;
+}

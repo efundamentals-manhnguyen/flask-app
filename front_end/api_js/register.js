@@ -1,7 +1,36 @@
+let registerApi = "http://127.0.0.1:5000/student-management/student"
+
+async function register(data){
+    await fetch(registerApi, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(function(response){
+            if(response.status == 200){
+                alert("Register success!")
+                window.location = './login_page.html'
+            }else{
+                alert("Register failed!")
+            }
+        })
+        .catch(function(error){
+            console.error(error)
+        })
+}
+
 function setErrorStyle(field, name) {
     field.setAttribute("style", "border: 1px red solid");
     document.querySelector(`[name="${name}"] + .validation-message`).classList.remove("is-hidden");
     document.querySelector(`[name="${name}"] + .validation-message`).classList.add("is-display");
+    document.getElementById("register-button").setAttribute("disabled", true);
+}
+function setNullInputError(field, name){
+    field.setAttribute("style", "border: 1px red solid");
+    document.querySelector(`[name="${name}"] ~ .null-input-error-message`).classList.remove("is-hidden");
+    document.querySelector(`[name="${name}"] ~ .null-input-error-message`).classList.add("is-display");
     document.getElementById("register-button").setAttribute("disabled", true);
 }
 
@@ -54,10 +83,26 @@ function handleRegister(e) {
             value: value[1]
         }
     });
+    console.log(listFieldValues)
 
-    const requestBody = {
-        name: listFieldValues.find(v => v.name === "student-name").value
+    for(let i = 0; i <= listFieldValues.length; i++){
+        if(listFieldValues[i]["value"] === ""){
+            setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
+        }
+        if(listFieldValues[i]["value"] === ""){
+            setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
+        }
     }
 
-    console.log(listFieldValues);
+    const requestBody = {
+        name: listFieldValues.find(v => v.name === "student-name").value,
+        email: listFieldValues.find(v => v.name === "email").value,
+        password: listFieldValues.find(v => v.name === "password").value,
+        confirm_password: listFieldValues.find(v => v.name === "confirm-password").value,
+        dob: listFieldValues.find(v => v.name === "dob").value,
+        gender: listFieldValues.find(v => v.name === "inlineRadioOptions").value,
+        class_name: listFieldValues.find(v => v.name === "class-name").value
+    }
+
+    register(requestBody)
 }
