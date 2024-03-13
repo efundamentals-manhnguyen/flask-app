@@ -27,6 +27,7 @@ function setErrorStyle(field, name) {
     document.querySelector(`[name="${name}"] + .validation-message`).classList.add("is-display");
     document.getElementById("register-button").setAttribute("disabled", true);
 }
+
 function setNullInputError(field, name){
     field.setAttribute("style", "border: 1px red solid");
     document.querySelector(`[name="${name}"] ~ .null-input-error-message`).classList.remove("is-hidden");
@@ -63,16 +64,6 @@ function field_validation(e, isRePw = false) {
     }
 }
 
-function getGenderValue() {
-    let genderValue
-    let ele = document.getElementsByName('inlineRadioOptions');
-    for (i = 0; i < ele.length; i++) {
-        if (ele[i].checked)
-            genderValue = ele[i].value
-    }
-    return genderValue
-}
-
 function handleRegister(e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -85,14 +76,11 @@ function handleRegister(e) {
     });
     console.log(listFieldValues)
 
-    for(let i = 0; i <= listFieldValues.length; i++){
-        if(listFieldValues[i]["value"] === ""){
-            setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
-        }
-        if(listFieldValues[i]["value"] === ""){
-            setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
-        }
-    }
+    // for(let i = 0; i <= listFieldValues.length; i++){
+    //     if(listFieldValues[i]["value"] === ""){
+    //         setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
+    //     }
+    // }
 
     const requestBody = {
         name: listFieldValues.find(v => v.name === "student-name").value,
