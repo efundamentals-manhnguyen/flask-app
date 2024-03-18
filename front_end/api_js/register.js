@@ -39,6 +39,7 @@ function removeErrorStyle(field, name) {
     field.removeAttribute("style");
     document.querySelector(`[name="${name}"] + .validation-message`).classList.remove("is-display");
     document.querySelector(`[name="${name}"] + .validation-message`).classList.add("is-hidden");
+    document.querySelector(`input[name="${name}"] ~ .null-input-error-message`).classList.add("is-hidden");
     document.getElementById("register-button").removeAttribute("disabled", false);
 }
 
@@ -76,21 +77,30 @@ function handleRegister(e) {
     });
     console.log(listFieldValues)
 
-    // for(let i = 0; i <= listFieldValues.length; i++){
-    //     if(listFieldValues[i]["value"] === ""){
-    //         setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
-    //     }
-    // }
+    let name = listFieldValues.find(v => v.name === "student-name").value;
+    let email = listFieldValues.find(v => v.name === "email").value;
+    let password = listFieldValues.find(v => v.name === "password").value;
+    let confirm_password = listFieldValues.find(v => v.name === "confirm-password").value;
+    let dob = listFieldValues.find(v => v.name === "dob").value;
+    let class_name = listFieldValues.find(v => v.name === "class-name").value;
 
-    const requestBody = {
-        name: listFieldValues.find(v => v.name === "student-name").value,
-        email: listFieldValues.find(v => v.name === "email").value,
-        password: listFieldValues.find(v => v.name === "password").value,
-        confirm_password: listFieldValues.find(v => v.name === "confirm-password").value,
-        dob: listFieldValues.find(v => v.name === "dob").value,
-        gender: listFieldValues.find(v => v.name === "inlineRadioOptions").value,
-        class_name: listFieldValues.find(v => v.name === "class-name").value
+    if (name && email && password && confirm_password && dob && class_name){
+        const requestBody = {
+            name: name,
+            email: email,
+            password: password,
+            confirm_password: confirm_password,
+            dob: dob,
+            gender: listFieldValues.find(v => v.name === "inlineRadioOptions").value,
+            class_name: class_name
+        }
+    
+        register(requestBody)
+    } else {
+        for(let i = 0; i <= listFieldValues.length; i++){
+            if(listFieldValues[i]["value"].length < 1){
+                setNullInputError(document.querySelector(`input[name="${listFieldValues[i]["name"]}"]`), listFieldValues[i]["name"])
+            }
+        }
     }
-
-    register(requestBody)
 }
