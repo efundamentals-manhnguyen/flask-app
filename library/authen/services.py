@@ -1,18 +1,18 @@
 from library.library_ma import StudentSchema
 from library.model import Students
 from flask import request, jsonify
-import jwt, os, hashlib
+import jwt, os
 from datetime import datetime, timedelta
 from ..students.services import hash_password
+from sqlalchemy.sql import func
 student_schema = StudentSchema()
 students_schema = StudentSchema(many=True)
 
 SECRET_KEY = os.environ.get("KEY")
 SECURITY_ALGORITHM = 'HS256'
 
-
 def generate_token(student_id):
-    expire = datetime.utcnow() + timedelta(
+    expire = datetime.now() + timedelta(
         seconds = 60 * 60 * 24 * 3 # Expired after 3 days
     )
     to_encode = {
@@ -36,4 +36,14 @@ def login_service():
             return jsonify({"message": "Login failed"}), 401
     else:
         return jsonify({"message": "Please fill login form!!!"}), 404
+    
+
+def forgot_password_service(email):
+    student = Students.query.filter(func.lower(Students.email) == email.lower()).first()
+    if student:
+        student_json = student_schema.dump(student)
+        reset_password_token = generate_token(student_json["id"])
+        return reset_password_token
+    else:
+        return jsonify({"message": "Student not found"}), 404
     
