@@ -7,7 +7,6 @@ from .category_author.controller import category
 from .authen.controller import authen
 from .extension import db, ma
 
-
 def create_app(config_file = "config.py"):
     app = Flask(__name__, static_url_path='',
                   static_folder='../front_end',
@@ -27,3 +26,4 @@ def create_app(config_file = "config.py"):
     app.register_blueprint(students)
     app.register_blueprint(authen)
     return app
+   

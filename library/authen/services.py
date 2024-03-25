@@ -5,6 +5,7 @@ import jwt, os
 from datetime import datetime, timedelta
 from ..students.services import hash_password
 from sqlalchemy.sql import func
+import smtplib, ssl
 student_schema = StudentSchema()
 students_schema = StudentSchema(many=True)
 
@@ -43,6 +44,21 @@ def forgot_password_service(email):
     if student:
         student_json = student_schema.dump(student)
         reset_password_token = generate_token(student_json["id"])
+
+        # port = 465  # For SSL
+        # smtp_server = "smtp.gmail.com"
+        # sender_email = "electrolibrary2024@gmail.com"  # Enter your address
+        # receiver_email = "tommybeer2111@gmail.com"  # Enter receiver address
+        # password = "Electro@123"
+        # message = """\
+        # Subject: Hi there
+
+        # This message is sent from Python."""
+
+        # context = ssl.create_default_context()
+        # with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        #     server.login(sender_email, password)
+        # server.sendmail(sender_email, receiver_email, message)
         return reset_password_token
     else:
         return jsonify({"message": "Student not found"}), 404
