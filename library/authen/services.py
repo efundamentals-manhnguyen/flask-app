@@ -1,11 +1,18 @@
+import os
+import jwt
+import smtplib
+import ssl
+
+from flask import jsonify
+from flask import request
+
+from sqlalchemy.sql import func
+from datetime import datetime, timedelta
+
+from ..students.services import hash_password
+
 from library.library_ma import StudentSchema
 from library.model import Students
-from flask import request, jsonify
-import jwt, os
-from datetime import datetime, timedelta
-from ..students.services import hash_password
-from sqlalchemy.sql import func
-import smtplib, ssl
 student_schema = StudentSchema()
 students_schema = StudentSchema(many=True)
 
@@ -62,4 +69,5 @@ def forgot_password_service(email):
         return reset_password_token
     else:
         return jsonify({"message": "Student not found"}), 404
+    
     

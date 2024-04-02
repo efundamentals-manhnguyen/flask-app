@@ -8,6 +8,7 @@ authen = Blueprint("authen", __name__)
 def student_login():
     return login_service()
 
+
 # forgot password
 @authen.route("/student-management/student/forgot-password/<string:email>", methods=['POST'])
 def forgot_password(email):

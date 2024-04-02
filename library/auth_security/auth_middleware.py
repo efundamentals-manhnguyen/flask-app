@@ -1,8 +1,12 @@
+import os
+import jwt
+
+from flask import request
+from flask import jsonify
+from functools import wraps
+
 from library.library_ma import StudentSchema
 from library.model import Students
-from flask import request, jsonify
-import jwt, os
-from functools import wraps
 student_schema = StudentSchema()
 students_schema = StudentSchema(many=True)
 

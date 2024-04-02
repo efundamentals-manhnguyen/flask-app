@@ -1,8 +1,11 @@
+from flask import request
+from flask import jsonify
+
 from library.extension import db
+from sqlalchemy.sql import func
+
 from library.library_ma import BookSchema, AuthorSchema
 from library.model import Category, Author
-from flask import jsonify, request
-from sqlalchemy.sql import func
 categories_schema = BookSchema(many=True)
 authors_schema = AuthorSchema(many=True)
 
@@ -81,8 +84,4 @@ def delete_author_by_id_service(id):
             return jsonify({"message": "Author dnot deleted"}), 400
     else:
         return jsonify({"message": "Author dnot found"}), 404
-    
-    
-
-
     

@@ -1,17 +1,24 @@
+import json
+import hashlib
+
+from flask import request
+from flask import jsonify
+
+from sqlalchemy.sql import func
+
 from library.extension import db
 from library.library_ma import StudentSchema
 from library.model import Author, Books, Category, Students
-from flask import request, jsonify, make_response
-from sqlalchemy.sql import func
-import json, hashlib
 student_schema = StudentSchema()
 students_schema = StudentSchema(many=True)
+
 
 def hash_password(password):
     password_bytes = password.encode('utf-8')
     hashed_password = hashlib.sha256(password_bytes)
     hex_dig_password = hashed_password.hexdigest()
     return hex_dig_password
+
 
 def add_student_service():
     data = request.json
@@ -33,7 +40,7 @@ def add_student_service():
             return jsonify({"message": "Can not add student!"}), 400
     else:
         return jsonify({"message": "Request error"}), 400
-    
+
 
 def get_all_students_service():
     students = Students.query.all()
@@ -41,8 +48,8 @@ def get_all_students_service():
         return students_schema.jsonify(students)
     else:
         return jsonify({"message": "Students not found"}), 404
+ 
     
-
 def delete_student_by_id_service(id):
     student = Students.query.get(id)
     if student:
